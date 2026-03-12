@@ -1,5 +1,5 @@
-const {Paladi} = require("./Paladi");
+const {PaladiHuma} = require("./Paladi");
 
 module.exports = {
-    Paladi
+    PaladiHuma
 }

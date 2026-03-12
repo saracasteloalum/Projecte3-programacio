@@ -1,6 +1,6 @@
 const { Personatge } = require("./Personatge");
 
-class Paladi extends Personatge {
+class PaladiHuma extends Personatge {
     constructor() {
         super();
         this.vida = 75;
@@ -20,4 +20,4 @@ class Paladi extends Personatge {
     ataqueSecundario() {}
 }
 
-module.exports.Paladi = Paladi;
+module.exports.PaladiHuma = PaladiHuma;
