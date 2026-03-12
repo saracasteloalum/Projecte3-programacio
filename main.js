@@ -1,23 +1,37 @@
 const prompt = require("prompt-sync")({sigint: true});
 
 
+console.log("---ESCULL EL TEU PERSONATGE---");
+personajeActual = crearPersonatge();
+console.log("\nPerfecte, has escollit el teu personatge!\n")
+
 function crearPersonatge () {
+    //Aquí hay la opción de escoger un personaje
 
-}
-
-function menuPersonatge () {
     let op;
     do {
-        console.log("---COMBATS AUTOMÀTICS---");
-        console.log("1. Paladi humà");
+        console.log("1. Paladí humà");
         console.log("2. Mag elf");
         console.log("3. Guerrer nan");
         console.log("4. Arquer mitjà");
-        
         op = Number(prompt("Escull el teu personatge: "));
-    } while ( op > 4 || op < 1)
-    
-    return 
+    } while (op < 1 || op > 4);
+
+    if (op === 1) return new PaladiHuma();
+    if (op === 2) return new MagElf();
+    if (op === 3) return new GuerrerNan();
+    if (op === 4) return new ArquerMitja();
+
+}
+
+function crearEnemicAleatori () {
+    // Esto básicamente 
+    let tipus = 1 + Math.random(Math.random() * 4);
+
+    if (tipus === 1) return new PaladiHuma();
+    if (tipus === 2) return new MagElf();
+    if (tipus === 3) return new GuerrerNan();
+    if (tipus === 4) return new ArquerMitja();
 }
 
 // ---- Menu Principal------
@@ -47,6 +61,9 @@ do {
             console.log("\n--- CREAR PERSONATGE ---");
             // aqui llamaremos a una función para crear el personaje (lo haremos más adelante)
             // por ejem:  personajeActual = crearNuevoPersonaje(); parte 1
+
+            // Aqui llamo a la función q crea el personaje 
+            personajeActual = crearPersonatge();
 
             // El enunciado dice que al crear uno nuevo, se reinician las estadisticas
             victorias = 0;
