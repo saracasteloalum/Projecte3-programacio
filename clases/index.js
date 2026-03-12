@@ -1,4 +1,4 @@
-const {PaladiHuma} = require("./Paladi");
+const {PaladiHuma} = require("./PaladiHuma");
 
 module.exports = {
     PaladiHuma
