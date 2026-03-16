@@ -25,10 +25,9 @@ function crearPersonatge () {
 
 function crearEnemicAleatori () {
     // Esto básicamente escoge un número del 1 al 4.
-    //El math.random * 4 da un decimal del 0 al 4
-    //Luego el floor lo redondea hacia abajo, osea que tendríamos del 0 al 3
-    //por eso pongo después un + 1, para que sea entre el 1 y el 4
-    let tipus = 1 + Math.floor(Math.random() * 4);
+    // El Math.random() * 4 da un decimal del 0 al 4.
+    // Luego el ceil lo redondea hacia arriba, osea que tendríamos del 1 al 4.
+    let tipus = Math.ceil(Math.random() * 4);
 
     //dependiendo del número que salga, se creará el tipo de personaje.
     if (tipus === 1) return new PaladiHuma();
