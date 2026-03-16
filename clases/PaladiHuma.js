@@ -22,6 +22,7 @@ class PaladiHuma extends Personatge {
         this.vida = 75;
         this.poder = 25;
         this.velocitat = 10;
+        this.tipus = "Paladí Humà"
     }
     /**
      * Inflinge daño como un 70% de su poder y se cura un 25% de su poder (sin superar la vida maxima)
