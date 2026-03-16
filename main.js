@@ -50,20 +50,17 @@ function combat (jugador) {
 
     //Aquí mira si la velocidad del jugador es mayor a la del enemigo.
     //Si lo es, el jugador va primero, sino irá segundo.
+    // Es diu el guerrer i el seu tipus
     
     if (jugador.velocitat >= enemic.velocitat) {
         primer = jugador;
         segon = enemic;
-
+        console.log("El jugador " + primer.tipus + " ataca primer.");
     } else {
         primer = enemic;
         segon = jugador;
+        console.log("L'enemic " + primer.tipus + " ataca primer.");
     }
-
-    //Aquí defino quién ataca primero.
-    console.log(primer.tipus + " ataca primer.");
-
-
 }
 
 

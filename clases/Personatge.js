@@ -2,6 +2,7 @@ class Personatge {
     #vida
     #poder
     #velocitat
+    tipus
     constructor() {}
     /**
      * @param {Number} novaVida La nueva vida que tendra el personaje, numero i positiva o igual a 0 si muere.

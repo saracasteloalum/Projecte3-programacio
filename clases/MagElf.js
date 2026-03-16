@@ -18,6 +18,7 @@ class MagElf extends Personatge {
         this.vida = 40;
         this.poder = 45;
         this.velocitat = 15;
+        this.tipus = "Mag Elf";
     }
     /**
      * Inflinge daño como un 100% de su poder

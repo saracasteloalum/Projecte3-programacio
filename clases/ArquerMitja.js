@@ -14,6 +14,7 @@ class ArquerMitja extends Personatge {
         this.vida = 50;
         this.poder = 30;
         this.velocitat = 20;
+        this.tipus = "Arquer Mitjà";
     }
     /**
      * Inflinge daño como un 100% de su poder 

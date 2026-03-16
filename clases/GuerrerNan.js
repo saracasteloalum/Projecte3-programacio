@@ -10,6 +10,7 @@ class GuerrerNan extends Personatge {
         this.vida = 90;
         this.poder = 20;
         this.velocitat = 5;
+        this.tipus = "Guerrer Nan";
     }
     /**
      * Se cura un 150% de su poder
