@@ -70,7 +70,7 @@ function combat (jugador) {
 let personatgeActual = null; // Al principio no tenemos personaje part1
 let victorias = 0;          // estadisticas iniciales 
 let derrotas = 0;
-let opcion = "";
+let opcion;
 
 
 // --- Menú personaje ---
@@ -148,5 +148,5 @@ do {
             break;
     }
 
-} while(opcion !== "4"); //el bucle se repite hasta que no elija la opcion '4' (salir)
+} while (opcion != 4); //el bucle se repite hasta que no elija la opcion '4' (salir)
 
