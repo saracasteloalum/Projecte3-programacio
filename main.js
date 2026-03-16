@@ -1,4 +1,5 @@
 const prompt = require("prompt-sync")({sigint: true});
+const {PaladiHuma, MagElf, GuerrerNan, ArquerMitja} = require("./clases/index");
 
 
 console.log("---ESCULL EL TEU PERSONATGE---");

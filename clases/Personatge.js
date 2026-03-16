@@ -8,6 +8,7 @@ class Personatge {
      */
     set vida(novaVida) {
         if ((!isNaN(novaVida)) && novaVida >= 0) this.#vida = novaVida;
+        if (this.#vida < 0) this.#vida = 0;
     }
     /**
      * @returns {Number} La vida actual del personaje
@@ -39,7 +40,13 @@ class Personatge {
     get velocitat() {
         return this.#velocitat;
     }
+    /**
+     * El primer ataque que puede hacer cada personaje
+     */
     ataquePrincipal() {}
+    /**
+     * El segundo ataque que puede hacer cada personaje
+     */
     ataqueSecundario() {}
 }
 
