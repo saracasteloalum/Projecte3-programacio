@@ -13,6 +13,7 @@ function crearPersonatge () {
         console.log("3. Guerrer nan");
         console.log("4. Arquer mitjà");
         op = Number(prompt("Escull el teu personatge: "));
+        // control de que te pasen un numero y no una letra
     } while (op < 1 || op > 4);
 
     //Dependiendo de lo que escoja el usuario, le crea ese tipo de personaje.
@@ -64,14 +65,6 @@ function combat (jugador) {
 }
 
 
-// --- Menú personaje ---
-
-console.log("---ESCULL EL TEU PERSONATGE---");
-personatgeActual = crearPersonatge();
-console.log("\nPerfecte, has escollit el teu personatge!\n")
-
-
-// --- Menú principal ---
 
 // Variables globales para guardar el estado de la partida
 let personatgeActual = null; // Al principio no tenemos personaje part1
@@ -79,22 +72,34 @@ let victorias = 0;          // estadisticas iniciales
 let derrotas = 0;
 let opcion = "";
 
+
+// --- Menú personaje ---
+
+console.log("---ESCULL EL TEU PERSONATGE---");
+personatgeActual = crearPersonatge();
+console.clear();
+console.log("\nPerfecte, has escollit el teu personatge!\n");
+// aqui estaria bien meter un delay y luego el console.clear()
+// console.clear();
+
+// --- Menú principal ---
+
 // utilizamos un bucle-while porque queremos que  el menu se muestre al menos una vez 
 do {
 
     console.log("\n=== COMBATS AUTOMÀTICS ===");
-    console.log("a. Crear nou personatge");
-    console.log("b. Veure estadístiques");
-    console.log("c. Lluitar");
-    console.log("d. Sortir");
+    console.log("1. Crear nou personatge");
+    console.log("2. Veure estadístiques");
+    console.log("3. Lluitar");
+    console.log("4. Sortir");
 
 
-    //usamos el metodo .toLowerCase para evitar las mayusculas que pueda poner el jugar y que se pueda leer correctamente
-    opcion = prompt("Escull una opción: ").toLowerCase();
+    //usamos el metodo Number() para convertir el prompt a number y que funcione el case
+    opcion = Number(prompt("Escull una opción: "));
 
     // 
     switch (opcion) {
-        case "a":
+        case 1:
             console.log("\n--- CREAR PERSONATGE ---");
             // aqui llamaremos a una función para crear el personaje (lo haremos más adelante)
             // por ejem:  personajeActual = crearNuevoPersonaje(); parte 1
@@ -105,23 +110,25 @@ do {
             // El enunciado dice que al crear uno nuevo, se reinician las estadisticas
             victorias = 0;
             derrotas = 0;
-            console.log("Personatge creat amb exit. Estadistiques reiniciades.");
+            console.log("Personatge creat amb èxit. Estadístiques reiniciades.");
             break;
 
-        case "b":
-            console.log("\n--- ESTADISTIQUES ---");
+        case 2:
+            console.log("\n--- ESTADÍSTIQUES ---");
             // en esta parte mostramos las victorias y derrotas 
             console.log("Victories: " + victorias);
             console.log("Derrotes: " + derrotas);
             break;
 
-        case "c":
+        case 3:
             console.log("\n--- LLUITAR ---");
             // no puedemos luchar si no hemos creado un personaje primero
             if (personatgeActual === null) {
-                console.log("Error: Primer has de crear un personatge, tria l'opció 'a'!");
+                console.log("Error: Primer has de crear un personatge, tria l'opció '1'!");
             } else {
                 console.log("Buscant rival... Preparat pel combat!");
+                // aquí iria bien que pusieramos un delay de un segundo con la libreria que nos han dado en clase
+                
                 // aqui llamaremos a una función creada para el combate 
                 // por ejem : iniciarCombat();
 
@@ -130,16 +137,16 @@ do {
             }
             break;
 
-        case "d":
+        case 4:
             // Salimos del programa 
             console.log("\nSortint del programa... Fins aviat!");
             break;
 
         default:
             // Por si el usuario pulsa una tecla equivocada
-            console.log("\nOpció no valida. Si us plau, escull a, b, c o d.");
+            console.log("\nOpció no vàlida. Si us plau, tria 1, 2, 3 o 4.");
             break;
     }
 
-}while(opcion !== "d"); //el bucle se repite hasta que no eleja la opcion 'd' (salir)
+} while(opcion !== "4"); //el bucle se repite hasta que no elija la opcion '4' (salir)
 
