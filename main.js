@@ -1,12 +1,9 @@
 const prompt = require("prompt-sync")({sigint: true});
 
-
-console.log("---ESCULL EL TEU PERSONATGE---");
-personajeActual = crearPersonatge();
-console.log("\nPerfecte, has escollit el teu personatge!\n")
+// --- Definición de funciones ---
 
 function crearPersonatge () {
-    //Aquí hay la opción de escoger un personaje
+    //Aquí hay la opción de escoger un personaje del 1 al 4
 
     let op;
     do {
@@ -17,6 +14,7 @@ function crearPersonatge () {
         op = Number(prompt("Escull el teu personatge: "));
     } while (op < 1 || op > 4);
 
+    //Dependiendo de lo que escoja el usuario, le crea ese tipo de personaje.
     if (op === 1) return new PaladiHuma();
     if (op === 2) return new MagElf();
     if (op === 3) return new GuerrerNan();
@@ -25,19 +23,61 @@ function crearPersonatge () {
 }
 
 function crearEnemicAleatori () {
-    // Esto básicamente 
-    let tipus = 1 + Math.random(Math.random() * 4);
+    // Esto básicamente escoge un número del 1 al 4.
+    //El math.random * 4 da un decimal del 0 al 4
+    //Luego el floor lo redondea hacia abajo, osea que tendríamos del 0 al 3
+    //por eso pongo después un + 1, para que sea entre el 1 y el 4
+    let tipus = 1 + Math.floor(Math.random() * 4);
 
+    //dependiendo del número que salga, se creará el tipo de personaje.
     if (tipus === 1) return new PaladiHuma();
     if (tipus === 2) return new MagElf();
     if (tipus === 3) return new GuerrerNan();
     if (tipus === 4) return new ArquerMitja();
 }
 
-// ---- Menu Principal------
+function combat (jugador) {
+    //Aqui defino el enemigo, que es aleatorio porque lo hace la función.
+    let enemic = crearEnemicAleatori();
+
+    //Luego inicio el combate entre el jugador y el enemigo. 
+    //Pongo qué tipo de personaje tiene el jugador y el enemigo
+    console.log("--- INICI DEL COMBAT ---");
+    console.log(jugador.tipus + "VS" + enemic.tipus);
+
+    let primer;
+    let segon;
+
+    //Aquí mira si la velocidad del jugador es mayor a la del enemigo.
+    //Si lo es, el jugador va primero, sino irá segundo.
+    
+    if (jugador.velocitat >= enemic.velocitat) {
+        primer = jugador;
+        segon = enemic;
+
+    } else {
+        primer = enemic;
+        segon = jugador;
+    }
+
+    //Aquí defino quién ataca primero.
+    console.log(primer.tipus + " ataca primer.");
+
+
+}
+
+
+// --- Menú personaje ---
+
+console.log("---ESCULL EL TEU PERSONATGE---");
+personatgeActual = crearPersonatge();
+console.log("\nPerfecte, has escollit el teu personatge!\n")
+
+
+// --- Menú principal ---
 
 // Variables globales para guardar el estado de la partida
-let personajeActual = null; // Al principio no tenemos personaje part1
+let personatgeActual = null; // Al principio no tenemos personaje part1
 let victorias = 0;          // estadisticas iniciales 
 let derrotas = 0;
 let opcion = "";
@@ -63,7 +103,7 @@ do {
             // por ejem:  personajeActual = crearNuevoPersonaje(); parte 1
 
             // Aqui llamo a la función q crea el personaje 
-            personajeActual = crearPersonatge();
+            personatgeActual = crearPersonatge();
 
             // El enunciado dice que al crear uno nuevo, se reinician las estadisticas
             victorias = 0;
@@ -81,12 +121,15 @@ do {
         case "c":
             console.log("\n--- LLUITAR ---");
             // no puedemos luchar si no hemos creado un personaje primero
-            if (personajeActual === null) {
-                console.log("Error: Primer has de crear un personatge elige la ocpion 'a'!");
+            if (personatgeActual === null) {
+                console.log("Error: Primer has de crear un personatge, tria l'opció 'a'!");
             } else {
                 console.log("Buscant rival... Preparat pel combat!");
                 // aqui llamaremos a una función creada para el combate 
                 // por ejem : iniciarCombat();
+
+                //Aquí llamo a la funcion del combate con el personaje que haya escogido el usuario
+                combat(personatgeActual);
             }
             break;
 

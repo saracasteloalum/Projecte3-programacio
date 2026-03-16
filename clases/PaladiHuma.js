@@ -6,6 +6,7 @@ class PaladiHuma extends Personatge {
         this.vida = 75;
         this.poder = 25;
         this.velocitat = 10;
+        this.tipus = "Paladí Humà"
     }
     ataquePrincipal() {
         // enemigo.vida = 25;
