@@ -29,8 +29,12 @@ class PaladiHuma extends Personatge {
      * @param {Personatge} contrincante El personaje contra el que se enfrenta
      */
     ataquePrincipal(contrincante) {
+        // determinar si esquiva o no
+        let esquive = Math.random();
+        if ((contrincante.velocitat / 100) >= esquive);
+
         // inflinge daño en un 70% de su poder
-        contrincante.vida -= (this.poder * mDAP);
+        else contrincante.vida -= (this.poder * mDAP);
 
         // sube vida un 25% de su poder (no mayor a su vida màxima)
         this.vida += (this.poder * mCAP);
@@ -46,8 +50,12 @@ class PaladiHuma extends Personatge {
         // baja su propia vida un 50% de su poder
         this.vida -= (this.poder * mDAS);
 
+        // determinar si esquiva o no
+        let esquive = Math.random();
+        if ((contrincante.velocitat / 100) >= esquive);
+
         // baja la vida del contrincante un 125% de su poder
-        contrincante.vida -= (this.poder * mDAS2);
+        else contrincante.vida -= (this.poder * mDAS2);
     }
 }
 

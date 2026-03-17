@@ -25,19 +25,31 @@ class MagElf extends Personatge {
      * @param {Personatge} contrincante El personaje contra el que se enfrenta
      */
     ataquePrincipal(contrincante) {
+        // determinar si esquiva o no
+        let esquive = Math.random();
+        if ((contrincante.velocitat / 100) > esquive);
+
         // baja la vida del contrincante un 100% del poder
-        contrincante.vida -= this.poder;
+        else contrincante.vida -= this.poder;
     }
     /**
      * Inflinge daño como un 20% de su poder entre 3 y 6 veces
      * @param {Personatge} contrincante El personaje contra el que se enfrenta
      */
     ataqueSecundario(contrincante) {
-        // baja la vida del contrincante un 20% de su poder entre 3 y 6 veces
+        // numero extras de proyectiles
         let veces = Math.floor(Math.random() * naPAS);
-        contrincante.vida -= (nmPAS + veces) * this.poder * mDAS;
+        let proyectilesLanzados = nmPAS + veces;
+        let proyectilesEsquivados = 0;
 
-        // se puede hacer varios ataques por individual y a ver cuantos esquiva pero no es necesario
+        for (i = 0; i < proyectilesLanzados; i++) {
+            // determinar si esquiva o no y lo añade al contador de esquives
+            let esquive = Math.random();
+            if ((contrincante.velocitat / 100) >= esquive) proyectilesEsquivados++;
+        }
+
+        // baja la vida del contrincante un 20% de su poder las veces que haya impactado
+        contrincante.vida -= (proyectilesLanzados - proyectilesEsquivados) * this.poder * mDAS;
     }
 }
 

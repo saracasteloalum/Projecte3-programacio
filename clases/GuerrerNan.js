@@ -27,8 +27,13 @@ class GuerrerNan extends Personatge {
      * @param {Personatge} contrincante El personaje contra el que se enfrenta
      */
     ataqueSecundario(contrincante) {
+        // determinar si esquiva o no
+        let esquive = Math.random();
+        if ((contrincante.velocitat / 100) >= esquive);
+
+
         // inflinge un 100% de su poder al enemigo
-        contrincante.vida -= this.poder;
+        else contrincante.vida -= this.poder;
     }
 }
 
