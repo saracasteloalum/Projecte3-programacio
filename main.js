@@ -49,8 +49,8 @@ function combat (jugador) {
     let primer;
     let segon;
 
-    //Aquí mira si la velocidad del jugador es mayor a la del enemigo.
-    //Si lo es, el jugador va primero, sino irá segundo.
+    //Aquí comparo las velocidades entre el jugador y el enemigo
+    //Si la velocidad del jugador es mayor, va primero, sino irá segundo.
     // Es diu el guerrer i el seu tipus
     
     if (jugador.velocitat >= enemic.velocitat) {
@@ -61,6 +61,50 @@ function combat (jugador) {
         primer = enemic;
         segon = jugador;
         console.log("L'enemic " + primer.tipus + " ataca primer.");
+    }
+
+    let ronda = 1;
+
+    //bucle para hacer más de una ronda
+    //mientras los dos estén vivos, continua la partida
+    while (jugador.vida() > 0 && enemic.vida() > 0) {
+
+        //TENGO Q METER LO DE ESQUIVAR TODAVIA
+
+        //Aqui enseño la ronda en la que estamos y la vida de los personajes
+        console.log("--- RONDA " + ronda + " ---");
+        console.log("Vida del jugador: " + jugador.vida);
+        console.log("Vida de l'enemic: " + enemic.vida);
+
+        //escoje una acción aleatoria
+        //el math random da un decimal del 0 al 2
+        //el math floor lo redondea del 0 al 1
+        let accio1 = Math.floor(Math.random() * 2);
+        if (accio1 == 0) {
+            primer.ataquePrincipal(segon);
+        } else {
+            primer.ataqueSecundario(segon);
+        }
+        
+        if (segon.vida <= 0 ) break;
+
+        let accio2 = Math.floor(Math.random() * 2);
+        if (accio2 == 0) {
+            segon.ataquePrincipal(primer);
+        } else { 
+            segon.ataqueSecundario(primer);
+        }
+
+        ronda++;
+
+        if (jugador.vida <= 0 && enemic.vida <= 0) {
+            console.log("Els dos heu perdut! Guanya el teu contrincant.");
+
+        } else if ( jugador.vida > 0 ) {
+            console.log("Felicitats, has guanyat!");
+        } else {
+            console.log("Has perdut. Guanya el teu contrincant.");
+        }
     }
 }
 
