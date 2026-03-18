@@ -38,8 +38,8 @@ class MagElf extends Personatge {
      */
     ataqueSecundario(contrincante) {
         // numero extras de proyectiles
-        let veces = Math.floor(Math.random() * naPAS);
-        let proyectilesLanzados = nmPAS + veces;
+        let proyectilesAdicionales = Math.floor(Math.random() * naPAS);
+        let proyectilesLanzados = nmPAS + proyectilesAdicionales;
         let proyectilesEsquivados = 0;
 
         for (i = 0; i < proyectilesLanzados; i++) {
