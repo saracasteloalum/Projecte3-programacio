@@ -1,5 +1,6 @@
 const prompt = require("prompt-sync")({sigint: true});
-const {PaladiHuma, MagElf, GuerrerNan, ArquerMitja} = require("./clases/index");
+const {PaladiHuma, MagElf, GuerrerNan, ArquerMitja} = require("clases");
+const {TerminalUtils} = require("terminalutils");
 
 // --- Definición de funciones ---
 
