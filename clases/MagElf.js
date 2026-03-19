@@ -42,7 +42,7 @@ class MagElf extends Personatge {
         let proyectilesLanzados = nmPAS + proyectilesAdicionales;
         let proyectilesEsquivados = 0;
 
-        for (i = 0; i < proyectilesLanzados; i++) {
+        for (let i = 0; i < proyectilesLanzados; i++) {
             // determinar si esquiva o no y lo añade al contador de esquives
             let esquive = Math.random();
             if ((contrincante.velocitat / 100) >= esquive) proyectilesEsquivados++;

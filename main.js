@@ -45,7 +45,7 @@ function combat (jugador) {
     //Luego inicio el combate entre el jugador y el enemigo. 
     //Pongo qué tipo de personaje tiene el jugador y el enemigo
     console.log("--- INICI DEL COMBAT ---");
-    console.log(jugador.tipus + "VS" + enemic.tipus);
+    console.log(jugador.tipus + " VS " + enemic.tipus);
 
     let primer;
     let segon;
@@ -57,18 +57,19 @@ function combat (jugador) {
     if (jugador.velocitat >= enemic.velocitat) {
         primer = jugador;
         segon = enemic;
-        console.log("El jugador " + primer.tipus + " ataca primer.");
+        console.log("\nEl jugador " + primer.tipus + " ataca primer.\n");
     } else {
         primer = enemic;
         segon = jugador;
-        console.log("L'enemic " + primer.tipus + " ataca primer.");
+        console.log("\nL'enemic " + primer.tipus + " ataca primer.\n");
     }
+
 
     let ronda = 1;
 
     //bucle para hacer más de una ronda
     //mientras los dos estén vivos, continua la partida
-    while (jugador.vida() > 0 && enemic.vida() > 0) {
+    while (jugador.vida > 0 && enemic.vida > 0) {
 
         //TENGO Q METER LO DE ESQUIVAR TODAVIA
 
@@ -98,7 +99,9 @@ function combat (jugador) {
 
         ronda++;
 
-        if (jugador.vida <= 0 && enemic.vida <= 0) {
+    }
+
+    if (jugador.vida <= 0 && enemic.vida <= 0) {
             console.log("Els dos heu perdut! Guanya el teu contrincant.");
 
         } else if ( jugador.vida > 0 ) {
@@ -106,7 +109,6 @@ function combat (jugador) {
         } else {
             console.log("Has perdut. Guanya el teu contrincant.");
         }
-    }
 }
 
 
@@ -189,7 +191,7 @@ do {
 
         default:
             // Por si el usuario pulsa una tecla equivocada
-            console.log("\nOpció no vàlida. Si us plau, tria 1, 2, 3 o 4.");
+            console.log("\nOpció no vàlida. Si us plau, tria una opció disponible.");
             break;
     }
 
