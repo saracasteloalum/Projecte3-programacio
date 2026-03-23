@@ -35,7 +35,7 @@ class PaladiHuma extends Personatge {
 
         // inflinge daño en un 70% de su poder
         else contrincante.vida -= (this.poder * mDAP);
-
+        
         // sube vida un 25% de su poder (no mayor a su vida màxima)
         this.vida += (this.poder * mCAP);
 
@@ -52,10 +52,15 @@ class PaladiHuma extends Personatge {
 
         // determinar si esquiva o no
         let esquive = Math.random();
-        if ((contrincante.velocitat / 100) >= esquive);
-
+        if ((contrincante.velocitat / 100) >= esquive) {
+            return "Ultim recurs! El paladí perd " + (this.poder * mDAS) + ". " + contrincante.tipus + " ha esquivat.";
+        }
         // baja la vida del contrincante un 125% de su poder
-        else contrincante.vida -= (this.poder * mDAS2);
+        else { 
+            contrincante.vida -= (this.poder * mDAS2);
+            return "Últim recurs! El paladí perd " + (this-poder * mDAS) + " i danya " + (this.poder * mDAS2) + " a " + contrincante.tipus + ".";
+        
+        }
     }
 }
 
