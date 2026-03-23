@@ -212,7 +212,7 @@ do {
 
         default:
             // Por si el usuario pulsa una tecla equivocada
-            TerminalUtils.print("\nOpció no vàlida. Si us plau, tria 1, 2, 3 o 4.\n", "#FF0000", "", true);//mensaje ui
+            TerminalUtils.print("\nOpció no vàlida. Si us plau, tria una opció disponible.\n", "#FF0000", "", true);//mensaje ui
             break;
     }
 
