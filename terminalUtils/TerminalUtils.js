@@ -11,7 +11,7 @@ class TerminalUtils {
      * @param {string} hex el color en hexadecimal
      * @returns {Array<Number>} Array amb els valors decimals rgb del color en hexadecimal
      */
-    static #hexRGBToDecimalRGB(hex) {
+    static hexRGBToDecimalRGB(hex) {
         let r = hex[1] + hex[2];
         let g = hex[3] + hex[4];
         let b = hex[5] + hex[6];
@@ -26,16 +26,16 @@ class TerminalUtils {
      * @param {string} fonsColor color de fons en hexadecimal (com a css. e.g. #33AA99)
      * @param {boolean} newLine Si volem o no un salt de linia al final de tot
      */
-    static #print(text, textColor = "", fonsColor = "", newLine = true) {
+    static print(text, textColor = "", fonsColor = "", newLine = true) {
         let color = "";
 
         if (textColor !== "") {
-            let tc = TerminalUtils.#hexRGBToDecimalRGB(textColor);
+            let tc = TerminalUtils.hexRGBToDecimalRGB(textColor);
             color += `\x1b[38;2;${tc[0]};${tc[1]};${tc[2]}m`;
         }
 
         if (fonsColor !== "") {
-            let fc = TerminalUtils.#hexRGBToDecimalRGB(fonsColor);
+            let fc = TerminalUtils.hexRGBToDecimalRGB(fonsColor);
             color += `\x1b[48;2;${fc[0]};${fc[1]};${fc[2]}m`;
         }
 
@@ -75,7 +75,7 @@ class TerminalUtils {
      * @param {string} [fonsColor] [opcional] El color del text en hexadecimal, per exemple #FFFFFF
      */
     static log(text, textColor = "", fonsColor = "") {
-        this.#print(text, textColor, fonsColor, true);
+        this.print(text, textColor, fonsColor, true);
     }
 
     /**
@@ -87,7 +87,7 @@ class TerminalUtils {
      * @param {string} [fonsColor] [opcional] El color del text en hexadecimal, per exemple #FFFFFF
      */
     static write(text, textColor = "", fonsColor = "") {
-        this.#print(text, textColor, fonsColor, false);
+        this.print(text, textColor, fonsColor, false);
     }
 }
 

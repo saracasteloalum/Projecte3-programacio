@@ -1,19 +1,18 @@
 const prompt = require("prompt-sync")({sigint: true});
 const {PaladiHuma, MagElf, GuerrerNan, ArquerMitja} = require("clases");
 const {TerminalUtils} = require("terminalutils");
+const Menus = require("./ui/Menus.js"); //
 
 // --- Definición de funciones ---
 
-function crearPersonatge () {
-    //Aquí hay la opción de escoger un personaje del 1 al 4
+function crearPersonatge () { 
 
+    //Aquí hay la opción de escoger un personaje del 1 al 4
     let op;
     do {
-        console.log("1. Paladí humà");
-        console.log("2. Mag elf");
-        console.log("3. Guerrer nan");
-        console.log("4. Arquer mitjà");
-        op = Number(prompt("Escull el teu personatge: "));
+        Menus.mostrarMenuPersonatges(); // menu ui remplazando a otros console.log
+        TerminalUtils.print("Escull el teu personatge: ", "#FF00FF", "", false);
+        op = Number(prompt(""));
         // control de que te pasen un numero y no una letra
     } while (op < 1 || op > 4);
 
@@ -137,32 +136,29 @@ let opcion;
 
 
 // --- Menú personaje ---
-
-console.log("---ESCULL EL TEU PERSONATGE---");
+//elimine el console.log anterior para que se vea el de menu ui crear personaje con color
 personatgeActual = crearPersonatge();
 console.clear();
-console.log("\nPerfecte, has escollit el teu personatge!\n");
-// aqui estaria bien meter un delay y luego el console.clear()
-// console.clear();
+TerminalUtils.print("\n✨ Perfecte, has escollit el teu personatge! ✨\n", "#00FF00", "", true); // mensajes ui despues de elegir una opcion
+
 
 // --- Menú principal ---
 
 // utilizamos un bucle-while porque queremos que  el menu se muestre al menos una vez 
 do {
 
-    console.log("\n=== COMBATS AUTOMÀTICS ===");
-    console.log("1. Crear nou personatge");
-    console.log("2. Veure estadístiques");
-    console.log("3. Lluitar");
-    console.log("4. Sortir");
+    Menus.mostrarMenuPrincipal(); // menu ui para el menu principal 
 
-
+    // Imprimimos el texto en blanco (#FFFFFF), SIN salto de línea al final (false)
+        TerminalUtils.print("Escull una opció: ", "#FFFFFF", "", false);
     //usamos el metodo Number() para convertir el prompt a number y que funcione el case
-    opcion = Number(prompt("Escull una opción: "));
+    //El prompt se queda vacío, pero recogerá lo que el usuario escriba
+    opcion = Number(prompt(""));
 
     // 
     switch (opcion) {
         case 1:
+            console.clear();
             console.log("\n--- CREAR PERSONATGE ---");
             // aqui llamaremos a una función para crear el personaje (lo haremos más adelante)
             // por ejem:  personajeActual = crearNuevoPersonaje(); parte 1
@@ -173,17 +169,19 @@ do {
             // El enunciado dice que al crear uno nuevo, se reinician las estadisticas
             victorias = 0;
             derrotas = 0;
-            console.log("Personatge creat amb èxit. Estadístiques reiniciades.");
+            console.log("Personatge creat amb èxit. Estadístiques reiniciades."); //poner delay
             break;
 
         case 2:
+            console.clear();
             console.log("\n--- ESTADÍSTIQUES ---");
             // en esta parte mostramos las victorias y derrotas 
-            console.log("Victories: " + victorias);
-            console.log("Derrotes: " + derrotas);
+            console.log("Victories: " + victorias); // texto verde
+            console.log("Derrotes: " + derrotas); // texto rojo
             break;
 
         case 3:
+            console.clear();
             console.log("\n--- LLUITAR ---");
             // no puedemos luchar si no hemos creado un p2ersonaje primero
             if (personatgeActual === null) {
@@ -209,12 +207,12 @@ do {
 
         case 4:
             // Salimos del programa 
-            console.log("\nSortint del programa... Fins aviat!");
+            TerminalUtils.print("\nSortint del programa... Fins aviat!\n", "#FFA500", "", true); // mensaje ui
             break;
 
         default:
             // Por si el usuario pulsa una tecla equivocada
-            console.log("\nOpció no vàlida. Si us plau, tria una opció disponible.");
+            TerminalUtils.print("\nOpció no vàlida. Si us plau, tria 1, 2, 3 o 4.\n", "#FF0000", "", true);//mensaje ui
             break;
     }
 
