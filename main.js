@@ -1,7 +1,7 @@
 const prompt = require("prompt-sync")({sigint: true});
 const {PaladiHuma, MagElf, GuerrerNan, ArquerMitja} = require("clases");
 const {TerminalUtils} = require("terminalutils");
-const Menus = require("./ui/Menus.js"); //
+const {Menus} = require("./ui/Menus.js"); //
 
 // --- Definición de funciones ---
 
@@ -108,6 +108,14 @@ function combat (jugador) {
     }
 }
 
+/**
+ * Mensaje de creación de personaje con exito, delay implementado
+ */
+async function personajeCreadoConExito() {
+    TerminalUtils.log("Personatge creat amb èxit. Estadístiques reiniciades.", "#62f088");
+    await TerminalUtils.espera(600);
+}
+
 
 
 // Variables globales para guardar el estado de la partida
@@ -151,6 +159,7 @@ do {
             // El enunciado dice que al crear uno nuevo, se reinician las estadisticas
             victorias = 0;
             derrotas = 0;
+            // personajeCreadoConExito(); // no espera entonces no se ve
             console.log("Personatge creat amb èxit. Estadístiques reiniciades."); //poner delay
             break;
 
@@ -158,8 +167,13 @@ do {
             console.clear();
             console.log("\n--- ESTADÍSTIQUES ---");
             // en esta parte mostramos las victorias y derrotas 
-            console.log("Victories: " + victorias); // texto verde
-            console.log("Derrotes: " + derrotas); // texto rojo
+            TerminalUtils.log("Victories: " + victorias, "#62f088");
+            TerminalUtils.log("Derrotes: " + derrotas, "#f0627c");
+            TerminalUtils.log("\nTemps viu: ", "#62cff0");
+            TerminalUtils.log("Partides jugades: ", "#62cff0");
+            TerminalUtils.log("Temps mitj per partida: ", "#62cff0");
+            // Prompt para poder verlo antes de salir
+            prompt("\nPrem enter per sortir...");
             break;
 
         case 3:
@@ -180,7 +194,7 @@ do {
             }
             break;
 
-        case 4:
+        case 0:
             // Salimos del programa 
             TerminalUtils.print("\nSortint del programa... Fins aviat!\n", "#FFA500", "", true); // mensaje ui
             break;
