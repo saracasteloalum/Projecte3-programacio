@@ -21,6 +21,7 @@ class GuerrerNan extends Personatge {
 
         // control de vida maxima
         if (this.vida > 90) this.vida = 90;
+        return "Recuperar alè! El guerrer es cura " + (this.poder * mCAP) + " de vida.";
     }
     /**
      * Inflinge daño como un 100% de su poder
@@ -29,11 +30,16 @@ class GuerrerNan extends Personatge {
     ataqueSecundario(contrincante) {
         // determinar si esquiva o no
         let esquive = Math.random();
-        if ((contrincante.velocitat / 100) >= esquive);
+        if ((contrincante.velocitat / 100) >= esquive) {
+            return "Cop de destral! " + contrincante.tipus + " ha esquivat l'atac.";
+        }
 
 
         // inflinge un 100% de su poder al enemigo
-        else contrincante.vida -= this.poder;
+        else  {
+            contrincante.vida -= this.poder;
+            return "Cop de destral! Danya " + this.poder + " a " + contrincante.tipus + ".";
+        }
     }
 }
 

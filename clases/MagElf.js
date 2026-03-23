@@ -27,10 +27,13 @@ class MagElf extends Personatge {
     ataquePrincipal(contrincante) {
         // determinar si esquiva o no
         let esquive = Math.random();
-        if ((contrincante.velocitat / 100) > esquive);
-
+        if ((contrincante.velocitat / 100) > esquive) {
+            return "Bola de foc! " + contrincante.tipus + " ha esquivat l'atac.";
+        }
         // baja la vida del contrincante un 100% del poder
-        else contrincante.vida -= this.poder;
+        else {contrincante.vida -= this.poder;
+            return "Bola de foc! Danya " + this.poder + " a " + contrincante.tipus + ".";
+        }
     }
     /**
      * Inflinge daño como un 20% de su poder entre 3 y 6 veces
@@ -50,6 +53,7 @@ class MagElf extends Personatge {
 
         // baja la vida del contrincante un 20% de su poder las veces que haya impactado
         contrincante.vida -= (proyectilesLanzados - proyectilesEsquivados) * this.poder * mDAS;
+
     }
 }
 

@@ -23,10 +23,15 @@ class ArquerMitja extends Personatge {
     ataquePrincipal(contrincante) {
         // determinar si esquiva o no
         let esquive = Math.random();
-        if ((contrincante.velocitat / 100) >= esquive);
+        if ((contrincante.velocitat / 100) >= esquive) {
+            return "Tir precís! " + contrincante.tipus + " ha esquivat l'atac.";
+        }
 
         // inflinge un 100% de daño a su contrincante
-        else contrincante.vida -= this.poder;
+        else { 
+            contrincante.vida -= this.poder;
+            return "Tir precís! Danya " + this.poder + " a " + contrincante.tipus + ".";
+        }
     }
     /**
      * Inflinge daño como un 50% de su poder entre 1 y 3 veces
@@ -45,6 +50,9 @@ class ArquerMitja extends Personatge {
 
         // baja la vida del contrincant un 50% de su poder las veces que haya impactado
         contrincante.vida -= (proyectilesLanzados - proyectilesEsquivados) * this.poder * mDAS;
+
+        let impactos = proyectilesLanzados - proyectilesEsquivados;
+        return "Tir múltiple! " + proyectilesLanzados + " fletxes, " + impactos + " impacten. Danya " + (impactos * this.poder * mDAS) + " a " + contrincante.tipus + ".";
     }
 }
 

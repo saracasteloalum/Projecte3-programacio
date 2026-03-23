@@ -82,20 +82,34 @@ function combat (jugador) {
         //el math random da un decimal del 0 al 2
         //el math floor lo redondea del 0 al 1
         let accio1 = Math.floor(Math.random() * 2);
+        let msg1;
         if (accio1 == 0) {
-            primer.ataquePrincipal(segon);
+            msg1 = primer.ataquePrincipal(segon);
         } else {
-            primer.ataqueSecundario(segon);
+            msg1 = primer.ataqueSecundario(segon);
         }
+
+        console.log(msg1);
+
+        console.log(accio1);
+        console.log("--> Vida " + segon.tipus + ": " + segon.vida);
+        console.log("--> Vida " + primer.tipus + ": " + primer.vida);  
         
         if (segon.vida <= 0 ) break;
 
         let accio2 = Math.floor(Math.random() * 2);
+        let msg2;
         if (accio2 == 0) {
-            segon.ataquePrincipal(primer);
+            msg2 = segon.ataquePrincipal(primer);
         } else { 
-            segon.ataqueSecundario(primer);
+            msg2= segon.ataqueSecundario(primer);
         }
+
+        console.log(msg2);
+        console.log(accio2);
+        console.log("  -> Vida " + primer.tipus + ": " + primer.vida);
+        console.log("  -> Vida " + segon.tipus + ": " + segon.vida);
+
 
         ronda++;
 
@@ -103,11 +117,13 @@ function combat (jugador) {
 
     if (jugador.vida <= 0 && enemic.vida <= 0) {
             console.log("Els dos heu perdut! Guanya el teu contrincant.");
-
+            return false;
         } else if ( jugador.vida > 0 ) {
             console.log("Felicitats, has guanyat!");
+            return true;
         } else {
             console.log("Has perdut. Guanya el teu contrincant.");
+            return false;
         }
 }
 
@@ -169,7 +185,7 @@ do {
 
         case 3:
             console.log("\n--- LLUITAR ---");
-            // no puedemos luchar si no hemos creado un personaje primero
+            // no puedemos luchar si no hemos creado un p2ersonaje primero
             if (personatgeActual === null) {
                 console.log("Error: Primer has de crear un personatge, tria l'opció '1'!");
             } else {
@@ -181,6 +197,13 @@ do {
 
                 //Aquí llamo a la funcion del combate con el personaje que haya escogido el usuario
                 combat(personatgeActual);
+
+                let guanya = combat(personatgeActual);
+                if (guanya) {
+                    victorias++;
+                } else {
+                    derrotas++;
+                }
             }
             break;
 
