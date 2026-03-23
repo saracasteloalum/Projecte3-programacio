@@ -145,6 +145,7 @@ do {
     // 
     switch (opcion) {
         case 1:
+            console.clear();
             console.log("\n--- CREAR PERSONATGE ---");
             // aqui llamaremos a una función para crear el personaje (lo haremos más adelante)
             // por ejem:  personajeActual = crearNuevoPersonaje(); parte 1
@@ -155,17 +156,19 @@ do {
             // El enunciado dice que al crear uno nuevo, se reinician las estadisticas
             victorias = 0;
             derrotas = 0;
-            console.log("Personatge creat amb èxit. Estadístiques reiniciades.");
+            console.log("Personatge creat amb èxit. Estadístiques reiniciades."); //poner delay
             break;
 
         case 2:
+            console.clear();
             console.log("\n--- ESTADÍSTIQUES ---");
             // en esta parte mostramos las victorias y derrotas 
-            console.log("Victories: " + victorias);
-            console.log("Derrotes: " + derrotas);
+            console.log("Victories: " + victorias); // texto verde
+            console.log("Derrotes: " + derrotas); // texto rojo
             break;
 
         case 3:
+            console.clear();
             console.log("\n--- LLUITAR ---");
             // no puedemos luchar si no hemos creado un personaje primero
             if (personatgeActual === null) {
