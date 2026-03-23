@@ -29,7 +29,7 @@ class Menus {
         TerminalUtils.print("1. Crear nou personatge", "#FFFFFF", "", true);
         TerminalUtils.print("2. Veure estadístiques", "#FFFFFF", "", true);
         TerminalUtils.print("3. Lluitar", "#FFFFFF", "", true);
-        TerminalUtils.print("0. Sortir", "#FF0000", "", true); // Rojo
+        TerminalUtils.print("0. Sortir", "#FFFFFF", "", true); // Rojo antes #FF0000
         
         TerminalUtils.print("\n==============================\n", "#FF1493", "", true);
     }
