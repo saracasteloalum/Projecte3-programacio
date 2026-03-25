@@ -130,8 +130,11 @@ function combat (jugador) {
  */
 async function personajeCreadoConExito() {
     TerminalUtils.log("Personatge creat amb èxit. Estadístiques reiniciades.", "#62f088");
-    await TerminalUtils.espera(600);}
+    await TerminalUtils.espera(1600);
+}
 
+
+async function main() {
 // Variables globales para guardar el estado de la partida
 let personatgeActual = null; // Al principio no tenemos personaje part1
 let victorias = 0;          // estadisticas iniciales 
@@ -173,10 +176,7 @@ do {
             // El enunciado dice que al crear uno nuevo, se reinician las estadisticas
             victorias = 0;
             derrotas = 0;
-            a();
-            // personajeCreadoConExito(); // no espera entonces no se ve
-            // console.log("Personatge creat amb èxit. Estadístiques reiniciades."); //poner delay
-            prompt();
+            await personajeCreadoConExito();
             break;
 
         case 2:
@@ -229,4 +229,5 @@ do {
     }
 
 } while (opcion != 4); //el bucle se repite hasta que no elija la opcion '4' (salir)
-
+}
+main();
