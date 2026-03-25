@@ -73,7 +73,7 @@ function combat (jugador) {
         //TENGO Q METER LO DE ESQUIVAR TODAVIA
 
         //Aqui enseño la ronda en la que estamos y la vida de los personajes
-        console.log("--- RONDA " + ronda + " ---");
+        console.log("--- RONDA " + ronda + "---");
         console.log("Vida del jugador: " + jugador.vida);
         console.log("Vida de l'enemic: " + enemic.vida);
 
@@ -89,7 +89,6 @@ function combat (jugador) {
         }
 
         console.log(msg1);
-
         console.log(accio1);
         console.log("--> Vida " + segon.tipus + ": " + segon.vida);
         console.log("--> Vida " + primer.tipus + ": " + primer.vida);  
