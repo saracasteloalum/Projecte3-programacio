@@ -186,7 +186,7 @@ do {
             // en esta parte mostramos las victorias y derrotas 
             TerminalUtils.log("Victories: " + victorias, "#62f088");
             TerminalUtils.log("Derrotes: " + derrotas, "#f0627c");
-            TerminalUtils.log("\nTemps viu: ", "#62cff0");
+            TerminalUtils.log("\nTemps en combat: ", "#62cff0");
             TerminalUtils.log("Partides jugades: ", "#62cff0");
             TerminalUtils.log("Temps mitj per partida: ", "#62cff0");
             // Prompt para poder verlo antes de salir
