@@ -36,15 +36,22 @@ function crearEnemicAleatori () {
     if (tipus === 3) return new GuerrerNan();
     if (tipus === 4) return new ArquerMitja();
 }
-
-function combat (jugador) {
+// añadi async a la funcion combat para la linea 115 y poder usar awit 
+// y asi espere un segundo para imprimir cada ronda, y no aparescan todas de golpe 
+async function combat (jugador) {
     //Aqui defino el enemigo, que es aleatorio porque lo hace la función.
     let enemic = crearEnemicAleatori();
 
     //Luego inicio el combate entre el jugador y el enemigo. 
     //Pongo qué tipo de personaje tiene el jugador y el enemigo
-    console.log("--- INICI DEL COMBAT ---");
-    console.log(jugador.tipus + " VS " + enemic.tipus);
+
+    // Diseño del inicio del combate
+    TerminalUtils.print("\n==============================", "#FF0000", "", true); // Rojo
+    TerminalUtils.print("       INICI DEL COMBAT       ", "#FFD700", "", true); // Amarillo
+    TerminalUtils.print("==============================\n", "#FF0000", "", true);
+    
+    // Mostramos los combatientes en color celeste
+    TerminalUtils.print("   " + jugador.tipus + " VS " + enemic.tipus + "\n", "#00FFFF", "", true);
 
     let primer;
     let segon;
@@ -56,11 +63,11 @@ function combat (jugador) {
     if (jugador.velocitat >= enemic.velocitat) {
         primer = jugador;
         segon = enemic;
-        console.log("\nEl jugador " + primer.tipus + " ataca primer.\n");
+        TerminalUtils.log(" El jugador " + primer.tipus + " és més ràpid i ataca primer.", "#CCCCCC");
     } else {
         primer = enemic;
         segon = jugador;
-        console.log("\nL'enemic " + primer.tipus + " ataca primer.\n");
+        TerminalUtils.log(" L'enemic " + primer.tipus + " és més ràpid i ataca primer.", "#CCCCCC");
     }
 
 
@@ -73,9 +80,12 @@ function combat (jugador) {
         //TENGO Q METER LO DE ESQUIVAR TODAVIA
 
         //Aqui enseño la ronda en la que estamos y la vida de los personajes
-        console.log("--- RONDA " + ronda + " ---");
-        console.log("Vida del jugador: " + jugador.vida);
-        console.log("Vida de l'enemic: " + enemic.vida);
+       //Titulo de la ronda en Amarillo
+        TerminalUtils.print("\n--- RONDA " + ronda + " ---", "#FFFF00", "", true);
+
+        //Vidas de los personajes (Jugador en Verde, Enemigo en Rojo)
+        TerminalUtils.print("Vida " + jugador.tipus + ": " + jugador.vida, "#00FF00", "", true);
+        TerminalUtils.print("Vida " + enemic.tipus + ": " + enemic.vida, "#FF0000", "", true);
 
         //escoje una acción aleatoria
         //el math random da un decimal del 0 al 2
@@ -87,12 +97,8 @@ function combat (jugador) {
         } else {
             msg1 = primer.ataqueSecundario(segon);
         }
-
-        console.log(msg1);
-
-        console.log(accio1);
-        console.log("--> Vida " + segon.tipus + ": " + segon.vida);
-        console.log("--> Vida " + primer.tipus + ": " + primer.vida);  
+        //Texto del primer ataque en Naranja
+        TerminalUtils.print("⚔️  " + msg1, "#FFA500", "", true); 
         
         if (segon.vida <= 0 ) break;
 
@@ -103,25 +109,23 @@ function combat (jugador) {
         } else { 
             msg2= segon.ataqueSecundario(primer);
         }
-
-        console.log(msg2);
-        console.log(accio2);
-        console.log("  -> Vida " + primer.tipus + ": " + primer.vida);
-        console.log("  -> Vida " + segon.tipus + ": " + segon.vida);
-
+        //Texto del segundo ataque en Naranja
+        TerminalUtils.print("⚔️  " + msg2, "#FFA500", "", true);
 
         ronda++;
+        //para que el temrinal espere un segundo antes de mostrar de golpe todas las rondas
+        await TerminalUtils.espera(1000);
 
     }
-
+    TerminalUtils.print("\n==============================", "#FFD700", "", true);
     if (jugador.vida <= 0 && enemic.vida <= 0) {
-            console.log("Els dos heu perdut! Guanya el teu contrincant.");
+            TerminalUtils.print(" Els dos heu perdut! Guanya el teu contrincant.", "#CCCCCC", "", true);
             return false;
         } else if ( jugador.vida > 0 ) {
-            console.log("Felicitats, has guanyat!");
+            TerminalUtils.print("🏆 Felicitats, has guanyat el combat!", "#00FF00", "", true);
             return true;
         } else {
-            console.log("Has perdut. Guanya el teu contrincant.");
+            TerminalUtils.print(" Has perdut. Guanya l'enemic.", "#FF0000", "", true);
             return false;
         }
 }
@@ -130,7 +134,7 @@ function combat (jugador) {
  * Mensaje de creación de personaje con exito, delay implementado
  */
 async function personajeCreadoConExito() {
-    TerminalUtils.log("Personatge creat amb èxit. Estadístiques reiniciades.", "#62f088");
+    TerminalUtils.log("✅ Personatge creat amb èxit. Estadístiques reiniciades.", "#62f088");
     await TerminalUtils.espera(1600);
 }
 
@@ -148,7 +152,7 @@ let opcion;
 personatgeActual = crearPersonatge();
 console.clear();
 TerminalUtils.print("\n✨ Perfecte, has escollit el teu personatge! ✨\n", "#00FF00", "", true); // mensajes ui despues de elegir una opcion
-
+await TerminalUtils.espera(1000);
 
 // --- Menú principal ---
 
@@ -195,26 +199,29 @@ do {
 
         case 3:
             console.clear();
-            console.log("\n--- LLUITAR ---");
-            // no puedemos luchar si no hemos creado un p2ersonaje primero
+            TerminalUtils.print("\n--- LLUITAR ---\n", "#FF4500", "", true);
+            
             if (personatgeActual === null) {
-                console.log("Error: Primer has de crear un personatge, tria l'opció '1'!");
+                TerminalUtils.log("Error: Primer has de crear un personatge, tria l'opció '1'!", "#FF0000");
+                await TerminalUtils.espera(2000); // Pausa para leer el error
             } else {
-                console.log("Buscant rival... Preparat pel combat!");
-                // aquí iria bien que pusieramos un delay de un segundo con la libreria que nos han dado en clase
+                TerminalUtils.log("Buscant rival... Preparat pel combat!", "#FFA500");
+                await TerminalUtils.espera(1500); // Pausa  antes de la pelea
+                console.clear(); // Limpiamos la pantalla antes de que empiece el combate
                 
-                // aqui llamaremos a una función creada para el combate 
-                // por ejem : iniciarCombat();
-
-                //Aquí llamo a la funcion del combate con el personaje que haya escogido el usuario
-                combat(personatgeActual);
-
-                let guanya = combat(personatgeActual);
+                //Como ahora el combate tiene pausas por dentro, tambien añadi await al  menuprincipal
+                //para que espere a que termine el combate antes de seguir sumando las victorias
+                let guanya = await combat(personatgeActual); // Llamamos al combate UNA SOLA VEZ y guardamos el resultado
+                
+                
                 if (guanya) {
                     victorias++;
                 } else {
                     derrotas++;
                 }
+                
+                // Pausa para leer el resultado antes de volver al menu
+                prompt("\nPrem Intro (Enter) per tornar al menú...");
             }
             break;
 
@@ -229,6 +236,6 @@ do {
             break;
     }
 
-} while (opcion != 4); //el bucle se repite hasta que no elija la opcion '4' (salir)
+} while (opcion != 0); //el bucle se repite hasta que no elija la opcion '0' (salir)
 }
 main();
