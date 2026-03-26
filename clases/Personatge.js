@@ -8,7 +8,7 @@ class Personatge {
      * @param {Number} novaVida La nueva vida que tendra el personaje, numero i positiva o igual a 0 si muere.
      */
     set vida(novaVida) {
-        if ((!isNaN(novaVida)) && novaVida >= 0) this.#vida = novaVida;
+        if (!(isNaN(novaVida))) this.#vida = novaVida;
         if (this.#vida < 0) this.#vida = 0;
     }
     /**
