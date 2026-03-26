@@ -2,6 +2,7 @@ const prompt = require("prompt-sync")({sigint: true});
 const {PaladiHuma, MagElf, GuerrerNan, ArquerMitja} = require("clases");
 const {TerminalUtils} = require("terminalutils");
 const {Menus} = require("./ui/Menus.js"); //
+const fs = require("fs");
 
 // --- Definición de funciones ---
 
@@ -134,7 +135,7 @@ async function combat (jugador) {
  * Mensaje de creación de personaje con exito, delay implementado
  */
 async function personajeCreadoConExito() {
-    TerminalUtils.log("✅ Personatge creat amb èxit. Estadístiques reiniciades.", "#62f088");
+    TerminalUtils.log("✅Personatge creat amb èxit. Estadístiques reiniciades.", "#62f088");
     await TerminalUtils.espera(1600);
 }
 
