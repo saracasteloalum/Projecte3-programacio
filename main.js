@@ -3,6 +3,13 @@ const { PaladiHuma, MagElf, GuerrerNan, ArquerMitja } = require("clases");
 const { TerminalUtils } = require("terminalutils");
 const { Menus } = require("./ui/Menus.js"); //
 
+// Variables globales para guardar el estado de la partida
+let personatgeActual = null; // Al principio no tenemos personaje part1
+let victorias = 0;          // estadisticas iniciales 
+let derrotas = 0;
+let opcion;
+let rondas;
+
 // --- Definición de funciones ---
 
 function crearPersonatge() {
@@ -122,6 +129,7 @@ async function combat(jugador) {
         await TerminalUtils.espera(1000);
 
     }
+    rondas = ronda;
     TerminalUtils.print("\n==============================", "#FFD700", "", true);
     if (jugador.vida <= 0 && enemic.vida <= 0) {
         TerminalUtils.print(" Els dos heu perdut! Guanya el teu contrincant.", "#CCCCCC", "", true);
@@ -145,11 +153,6 @@ async function personajeCreadoConExito() {
 
 
 async function main() {
-    // Variables globales para guardar el estado de la partida
-    let personatgeActual = null; // Al principio no tenemos personaje part1
-    let victorias = 0;          // estadisticas iniciales 
-    let derrotas = 0;
-    let opcion;
 
 
     // --- Menú personaje ---
@@ -195,9 +198,9 @@ async function main() {
                 // en esta parte mostramos las victorias y derrotas 
                 TerminalUtils.log("Victories: " + victorias, "#62f088");
                 TerminalUtils.log("Derrotes: " + derrotas, "#f0627c");
-                TerminalUtils.log("\nTemps en combat: ", "#62cff0");
-                TerminalUtils.log("Partides jugades: ", "#62cff0");
-                TerminalUtils.log("Temps mitj per partida: ", "#62cff0");
+                TerminalUtils.log("\nRondes en combat: ", "#62cff0");
+                TerminalUtils.log("Partides jugades: " + (victorias + derrotas), "#62cff0");
+                TerminalUtils.log("Mitjana de rondes per partida: ", "#62cff0");
                 // Prompt para poder verlo antes de salir
                 prompt("\nPrem enter per sortir...");
                 break;
@@ -224,6 +227,9 @@ async function main() {
                     } else {
                         derrotas++;
                     }
+
+                    // Guardamos todas las estadisticas
+                    
 
                     // Pausa para leer el resultado antes de volver al menu
                     prompt("\nPrem Intro (Enter) per tornar al menú...");
