@@ -51,10 +51,10 @@ class ArquerMitja extends Personatge {
         let impactos = proyectilesLanzados - proyectilesEsquivados;
 
         // baja la vida del contrincant un 50% de su poder las veces que haya impactado
-        let danyo = impactos * this.poder * mDAS;
-        contrincante.vida -= danyo;
+        let daño = impactos * this.poder * mDAS;
+        contrincante.vida -= daño;
 
-        return "Tir múltiple! " + proyectilesLanzados + " fletxes, " + impactos + " impacten. Danya " + danyo + " a " + contrincante.tipus + ".";
+        return "Tir múltiple! " + proyectilesLanzados + " fletxes, " + impactos + " impacten. Danya " + daño + " a " + contrincante.tipus + ".";
     }
 }
 

@@ -107,7 +107,7 @@ async function combat(jugador) {
 
         if (segon.vida <= 0) break;
 
-        let accio2 = Math.floor(Math.random() * 2);
+        let accio2 = Math.round(Math.random());
         let msg2;
         if (accio2 == 0) {
             msg2 = segon.ataquePrincipal(primer);

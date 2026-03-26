@@ -52,8 +52,11 @@ class MagElf extends Personatge {
         }
 
         // baja la vida del contrincante un 20% de su poder las veces que haya impactado
-        contrincante.vida -= (proyectilesLanzados - proyectilesEsquivados) * this.poder * mDAS;
+        let impactos = proyectilesLanzados - proyectilesEsquivados;
+        let daño = impactos * this.poder * mDAS;
+        contrincante.vida -= daño;
 
+        return "Tir múltiple! " + proyectilesLanzados + " fletxes, " + impactos + " impacten. Danya " + daño + " a " + contrincante.tipus + ".";
     }
 }
 
