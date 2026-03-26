@@ -51,6 +51,7 @@ async function combat (jugador) {
     TerminalUtils.print("       INICI DEL COMBAT       ", "#FFD700", "", true); // Amarillo
     TerminalUtils.print("==============================\n", "#FF0000", "", true);
     
+    
     // Mostramos los combatientes en color celeste
     TerminalUtils.print("   " + jugador.tipus + " VS " + enemic.tipus + "\n", "#00FFFF", "", true);
 
