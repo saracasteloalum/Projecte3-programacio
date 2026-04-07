@@ -1,7 +1,8 @@
-const prompt = require("prompt-sync")({ sigint: true });
-const { PaladiHuma, MagElf, GuerrerNan, ArquerMitja } = require("clases");
-const { TerminalUtils } = require("terminalutils");
-const { Menus } = require("./ui/Menus.js"); //
+const prompt = require("prompt-sync")({sigint: true});
+const {PaladiHuma, MagElf, GuerrerNan, ArquerMitja} = require("clases");
+const {TerminalUtils} = require("terminalutils");
+const {Menus} = require("./ui/Menus.js"); //
+const fs = require("fs");
 
 // Variables globales para guardar el estado de la partida
 let personatgeActual = null; // Al principio no tenemos personaje part1
@@ -62,7 +63,8 @@ async function combat(jugador) {
     TerminalUtils.print("\n==============================", "#FF0000", "", true); // Rojo
     TerminalUtils.print("       INICI DEL COMBAT       ", "#FFD700", "", true); // Amarillo
     TerminalUtils.print("==============================\n", "#FF0000", "", true);
-
+    
+    
     // Mostramos los combatientes en color celeste
     TerminalUtils.print("   " + jugador.tipus + " VS " + enemic.tipus + "\n", "#00FFFF", "", true);
 
@@ -147,7 +149,7 @@ async function combat(jugador) {
  * Mensaje de creación de personaje con exito, delay implementado
  */
 async function personajeCreadoConExito() {
-    TerminalUtils.log("✅ Personatge creat amb èxit. Estadístiques reiniciades.", "#62f088");
+    TerminalUtils.log("✅Personatge creat amb èxit. Estadístiques reiniciades.", "#62f088");
     await TerminalUtils.espera(1600);
 }
 
