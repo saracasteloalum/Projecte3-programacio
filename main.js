@@ -10,7 +10,6 @@ let victorias = 0;          // estadisticas iniciales
 let derrotas = 0;
 let opcion;
 let rondas = 0;
-let partidas = victorias + derrotas;
 let victoriasArxiu = 0;     // estadisticas arxiu 
 let derrotasArxiu = 0;
 let rondasArxiu = 0;
@@ -220,8 +219,6 @@ async function combat(jugador) {
         return false;
     }
 }
-
-// funcion checkear si existe archivo estadisticas
 
 /**
  * Mensaje de creación de personaje con exito, delay implementado
