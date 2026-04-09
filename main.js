@@ -10,7 +10,7 @@ let victorias = 0;          // estadisticas iniciales
 let derrotas = 0;
 let opcion;
 let rondas = 0;
-let partidas = 0;
+let partidas = victorias + derrotas;
 let victoriasArxiu = 0;     // estadisticas arxiu 
 let derrotasArxiu = 0;
 let rondasArxiu = 0;
@@ -57,13 +57,15 @@ function llegirEstadisticas() {
     let contingut = buffer.split("\n");
     contingut.splice(0, 1);
     contingut = contingut[0].split(";");
-    for (v of contingut) v = parseInt(v);
+    // for (v of contingut) {
+    //     v = Number(v);
+    // }
 
     // y aqui se implementan en el programa
-    victoriasArxiu = contingut[0];
-    derrotasArxiu = contingut[1];
-    rondasArxiu = contingut[2];
-    partidasArxiu = contingut[3];
+    victoriasArxiu = Number(contingut[0]);
+    derrotasArxiu = Number(contingut[1]);
+    rondasArxiu = Number(contingut[2]);
+    partidasArxiu = Number(contingut[3]);
 }
 /**
  * es resetejan les estadistiques temporals
@@ -82,15 +84,30 @@ function escriureEstadisticas() {
     // llegenda del csv
     let llegenda = "victorias;derrotas;rondas;partidas\n";
     // es sumen les estadistiques temporals amb les finals per conseguir les finals noves
-    // HACER QUE LAS SUMAS APARTE PARA ASEGURAR QUE SON NUM
+    let victoriasTotales = victoriasArxiu + victorias;
+    let derrotasTotales = derrotasArxiu + derrotas;
+    let rondasTotales = rondasArxiu + rondas;
+    let partidasTotales = victoriasTotales + derrotasTotales;
     let estadistiques =
-        "" + (victoriasArxiu + victorias) +
-        ";" + (derrotasArxiu + derrotas) +
-        ";" + (rondasArxiu + rondas) +
-        ";" + (partidasArxiu + partidas);
+        "" + (victoriasTotales) +
+        ";" + (derrotasTotales) +
+        ";" + (rondasTotales) +
+        ";" + (partidasTotales);
     let novesEstadistiques = llegenda + estadistiques;
     fs.writeFileSync("./estadisticas.csv", novesEstadistiques);
     resetStatTemp();
+}
+
+/**
+ * mira si existeix l'axiu i el crea si no
+ */
+function crearEstadisticas() {
+    if (!fs.existsSync("./estadisticas.csv")) {
+        let llegenda = "victorias;derrotas;rondas;partidas\n";
+        let stats = "0;0;0;0;";
+        let infoBasic = llegenda + stats;
+        fs.writeFileSync("./estadisticas.csv", infoBasic);
+    }
 }
 
 /**
@@ -218,6 +235,7 @@ async function main() {
 
 
     // --- Menú personaje ---
+    crearEstadisticas();
     //elimine el console.log anterior para que se vea el de menu ui crear personaje con color
     personatgeActual = crearPersonatge();
     console.clear();
@@ -262,8 +280,8 @@ async function main() {
                 TerminalUtils.log("Victories: " + victoriasArxiu, "#62f088");
                 TerminalUtils.log("Derrotes: " + derrotasArxiu, "#f0627c");
                 TerminalUtils.log("\nRondes en combat: " + rondasArxiu, "#62cff0");
-                TerminalUtils.log("Partides jugades: " + (victoriasArxiu + derrotasArxiu), "#62cff0");
-                let mitjana = Math.floor(rondasArxiu / partidasArxiu);
+                TerminalUtils.log("Partides jugades: " + (partidasArxiu), "#62cff0");
+                let mitjana = Math.round(rondasArxiu / partidasArxiu);
                 if (isNaN(mitjana)) TerminalUtils.log("Mitjana de rondes per partida: 0", "#62cff0");
                 if (!isNaN(mitjana)) TerminalUtils.log("Mitjana de rondes per partida: " + mitjana, "#62cff0");
                 // Prompt para poder verlo antes de salir
@@ -292,7 +310,6 @@ async function main() {
                     } else {
                         derrotas++;
                     }
-                    partidas++;
 
                     // Guardamos todas las estadisticas
                     escriureEstadisticas();
@@ -313,7 +330,10 @@ async function main() {
                 // Poner un await para que el usuario vea el error (hay que meter el mensaje en una funcion async)
                 break;
             case 4:
-                llegirEstadisticas();
+                a = "4";
+                console.log(a);
+                parseInt(a);
+                console.log(a);
                 prompt();
                 break;
         }
