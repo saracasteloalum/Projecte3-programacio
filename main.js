@@ -1,7 +1,7 @@
-const prompt = require("prompt-sync")({sigint: true});
-const {PaladiHuma, MagElf, GuerrerNan, ArquerMitja} = require("clases");
-const {TerminalUtils} = require("terminalutils");
-const {Menus} = require("./ui/Menus.js"); //
+const prompt = require("prompt-sync")({ sigint: true });
+const { PaladiHuma, MagElf, GuerrerNan, ArquerMitja } = require("clases");
+const { TerminalUtils } = require("terminalutils");
+const { Menus } = require("./ui/Menus.js"); //
 const fs = require("fs");
 
 // Variables globales para guardar el estado de la partida
@@ -9,7 +9,12 @@ let personatgeActual = null; // Al principio no tenemos personaje part1
 let victorias = 0;          // estadisticas iniciales 
 let derrotas = 0;
 let opcion;
-let rondas;
+let rondas = 0;
+let partidas = 0;
+let victoriasArxiu = 0;     // estadisticas arxiu 
+let derrotasArxiu = 0;
+let rondasArxiu = 0;
+let partidasArxiu = 0;
 
 // --- Definición de funciones ---
 
@@ -44,17 +49,71 @@ function crearEnemicAleatori() {
     if (tipus === 3) return new GuerrerNan();
     if (tipus === 4) return new ArquerMitja();
 }
+
+function llegirEstadisticas() {
+    // aquí se leen los datos, se extraen y se separan
+    let buffer = fs.readFileSync("./estadisticas.csv");
+    buffer = buffer.toString();
+    let contingut = buffer.split("\n");
+    contingut.splice(0, 1);
+    contingut = contingut[0].split(";");
+    for (v of contingut) v = parseInt(v);
+
+    // y aqui se implementan en el programa
+    victoriasArxiu = contingut[0];
+    derrotasArxiu = contingut[1];
+    rondasArxiu = contingut[2];
+    partidasArxiu = contingut[3];
+}
+/**
+ * es resetejan les estadistiques temporals
+ */
+function resetStatTemp() {
+    victorias = 0;
+    derrotas = 0;
+    rondas = 0;
+    partidas = 0;
+}
+/**
+ * escriu les estadisticas finals al arxiu i elimina les temporals
+ */
+function escriureEstadisticas() {
+    llegirEstadisticas();
+    // llegenda del csv
+    let llegenda = "victorias;derrotas;rondas;partidas\n";
+    // es sumen les estadistiques temporals amb les finals per conseguir les finals noves
+    // HACER QUE LAS SUMAS APARTE PARA ASEGURAR QUE SON NUM
+    let estadistiques =
+        "" + (victoriasArxiu + victorias) +
+        ";" + (derrotasArxiu + derrotas) +
+        ";" + (rondasArxiu + rondas) +
+        ";" + (partidasArxiu + partidas);
+    let novesEstadistiques = llegenda + estadistiques;
+    fs.writeFileSync("./estadisticas.csv", novesEstadistiques);
+    resetStatTemp();
+}
+
+/**
+ * 
+ * @param {Object} jugador el personatge del jugador
+ * reset de les estadistiques del personatge del jugador, per asegurar que cada ronda comença amb les estadistiques noves
+ */
+function resetPersonatges(jugador) {
+    // control para restablecer la vida del combate anterior
+    if (jugador.tipus === "Paladí Humà") jugador.vida = 75;
+    if (jugador.tipus === "Mag Elf") jugador.vida = 40;
+    if (jugador.tipus === "Guerrer Nan") jugador.vida = 90;
+    if (jugador.tipus === "Guerrer Nan") jugador.curacions = 5;
+    if (jugador.tipus === "Arquer Mitjà") jugador.vida = 50;
+}
+
 // añadi async a la funcion combat para la linea 115 y poder usar awit 
 // y asi espere un segundo para imprimir cada ronda, y no aparescan todas de golpe 
 async function combat(jugador) {
     //Aqui defino el enemigo, que es aleatorio porque lo hace la función.
     let enemic = crearEnemicAleatori();
 
-    // control para restablecer la vida del combate anterior
-    if (jugador.tipus === "Paladí Humà") jugador.vida = 75;
-    if (jugador.tipus === "Mag Elf") jugador.vida = 40;
-    if (jugador.tipus === "Guerrer Nan") jugador.vida = 90;
-    if (jugador.tipus === "Arquer Mitjà") jugador.vida = 50;
+    resetPersonatges(jugador);
 
     //Luego inicio el combate entre el jugador y el enemigo. 
     //Pongo qué tipo de personaje tiene el jugador y el enemigo
@@ -63,8 +122,8 @@ async function combat(jugador) {
     TerminalUtils.print("\n==============================", "#FF0000", "", true); // Rojo
     TerminalUtils.print("       INICI DEL COMBAT       ", "#FFD700", "", true); // Amarillo
     TerminalUtils.print("==============================\n", "#FF0000", "", true);
-    
-    
+
+
     // Mostramos los combatientes en color celeste
     TerminalUtils.print("   " + jugador.tipus + " VS " + enemic.tipus + "\n", "#00FFFF", "", true);
 
@@ -145,6 +204,8 @@ async function combat(jugador) {
     }
 }
 
+// funcion checkear si existe archivo estadisticas
+
 /**
  * Mensaje de creación de personaje con exito, delay implementado
  */
@@ -152,7 +213,6 @@ async function personajeCreadoConExito() {
     TerminalUtils.log("✅Personatge creat amb èxit. Estadístiques reiniciades.", "#62f088");
     await TerminalUtils.espera(1600);
 }
-
 
 async function main() {
 
@@ -196,13 +256,16 @@ async function main() {
 
             case 2:
                 console.clear();
+                llegirEstadisticas();
                 console.log("\n--- ESTADÍSTIQUES ---");
                 // en esta parte mostramos las victorias y derrotas 
-                TerminalUtils.log("Victories: " + victorias, "#62f088");
-                TerminalUtils.log("Derrotes: " + derrotas, "#f0627c");
-                TerminalUtils.log("\nRondes en combat: ", "#62cff0");
-                TerminalUtils.log("Partides jugades: " + (victorias + derrotas), "#62cff0");
-                TerminalUtils.log("Mitjana de rondes per partida: ", "#62cff0");
+                TerminalUtils.log("Victories: " + victoriasArxiu, "#62f088");
+                TerminalUtils.log("Derrotes: " + derrotasArxiu, "#f0627c");
+                TerminalUtils.log("\nRondes en combat: " + rondasArxiu, "#62cff0");
+                TerminalUtils.log("Partides jugades: " + (victoriasArxiu + derrotasArxiu), "#62cff0");
+                let mitjana = Math.floor(rondasArxiu / partidasArxiu);
+                if (isNaN(mitjana)) TerminalUtils.log("Mitjana de rondes per partida: 0", "#62cff0");
+                if (!isNaN(mitjana)) TerminalUtils.log("Mitjana de rondes per partida: " + mitjana, "#62cff0");
                 // Prompt para poder verlo antes de salir
                 prompt("\nPrem enter per sortir...");
                 break;
@@ -229,9 +292,10 @@ async function main() {
                     } else {
                         derrotas++;
                     }
+                    partidas++;
 
                     // Guardamos todas las estadisticas
-                    
+                    escriureEstadisticas();
 
                     // Pausa para leer el resultado antes de volver al menu
                     prompt("\nPrem Intro (Enter) per tornar al menú...");
@@ -247,6 +311,10 @@ async function main() {
                 // Por si el usuario pulsa una tecla equivocada
                 TerminalUtils.print("\nOpció no vàlida. Si us plau, tria una opció disponible.\n", "#FF0000", "", true);//mensaje ui
                 // Poner un await para que el usuario vea el error (hay que meter el mensaje en una funcion async)
+                break;
+            case 4:
+                llegirEstadisticas();
+                prompt();
                 break;
         }
 

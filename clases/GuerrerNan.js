@@ -5,23 +5,40 @@ const { Personatge } = require("./Personatge");
 const mCAP = 1.5;
 
 class GuerrerNan extends Personatge {
+    #curacions
     constructor() {
         super();
         this.vida = 90;
         this.poder = 20;
         this.velocitat = 5;
         this.tipus = "Guerrer Nan";
+        this.curacions = 5;
+    }
+    set curacions(curacions) {
+        this.#curacions = curacions;
+    }
+    get curacions() {
+        return this.#curacions;
     }
     /**
      * Se cura un 150% de su poder
      */
     ataquePrincipal() {
+        let vidaAnterior = this.vida;
+        let curacionsPrecombat = this.curacions;
         // se cura un 150% de su poder
-        this.vida += (this.poder * mCAP);
-
+        if (this.curacions > 0) {
+            this.vida += (this.poder * mCAP);
+            this.curacions--;
+        }
         // control de vida maxima
         if (this.vida > 90) this.vida = 90;
-        return "Recuperar alè! El guerrer es cura " + (this.poder * mCAP) + " de vida.";
+        let vidaActual = this.vida;
+        let diferenciaVida = vidaActual - vidaAnterior;
+        // missatge de combat
+        if (curacionsPrecombat > 0 && diferenciaVida > 0) return "Recuperar alè! El guerrer es cura " + diferenciaVida + " de vida.";
+        if (curacionsPrecombat > 0 && diferenciaVida == 0) return "Recuperar alè! El guerrer ja està al màxim vida.";
+        if (curacionsPrecombat == 0) return "Recuperar alè! El guerrer s'ha quedat sense curacions.";
     }
     /**
      * Inflinge daño como un 100% de su poder
@@ -34,9 +51,8 @@ class GuerrerNan extends Personatge {
             return "Cop de destral! " + contrincante.tipus + " ha esquivat l'atac.";
         }
 
-
         // inflinge un 100% de su poder al enemigo
-        else  {
+        else {
             contrincante.vida -= this.poder;
             return "Cop de destral! Danya " + this.poder + " a " + contrincante.tipus + ".";
         }

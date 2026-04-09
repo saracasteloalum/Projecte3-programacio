@@ -2,7 +2,7 @@ class Personatge {
     #vida
     #poder
     #velocitat
-    tipus
+    #tipus
     constructor() {}
     /**
      * @param {Number} novaVida La nueva vida que tendra el personaje, numero i positiva o igual a 0 si muere.
@@ -42,6 +42,18 @@ class Personatge {
         return this.#velocitat;
     }
     /**
+     * @param {String} nom El nom del tipus de personatge
+     */
+    set tipus(nom) {
+        this.#tipus = nom;
+    }
+    /**
+     * @returns {String} El nom del tipus de personatge
+     */
+    get tipus () {
+        return this.#tipus;
+    }
+    /**
      * El primer ataque que puede hacer cada personaje
      */
     ataquePrincipal() {}
@@ -49,6 +61,7 @@ class Personatge {
      * El segundo ataque que puede hacer cada personaje
      */
     ataqueSecundario() {}
+    // metodo esquive
 }
 
 module.exports.Personatge = Personatge;
