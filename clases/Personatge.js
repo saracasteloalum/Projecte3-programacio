@@ -61,7 +61,6 @@ class Personatge {
      * El segundo ataque que puede hacer cada personaje
      */
     ataqueSecundario() {}
-    // metodo esquive
 }
 
 module.exports.Personatge = Personatge;
