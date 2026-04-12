@@ -14,9 +14,9 @@ class Menus {
         TerminalUtils.print("2. Mag elf", "#8A2BE2", "", true);     // Morado
         TerminalUtils.print("3. Guerrer nan", "#FF4500", "", true);  // Naranja
         TerminalUtils.print("4. Arquer mitjà", "#32CD32", "", true); // Verde
-        
+
         TerminalUtils.print("\n══════════════════════════════\n", "#00FFFF", "", true);
-        
+
     }
 
     //FUNCIÓN PARA EL MENÚ PRINCIPAL
@@ -30,8 +30,20 @@ class Menus {
         TerminalUtils.print("2. Veure estadístiques", "#FFFFFF", "", true);
         TerminalUtils.print("3. Lluitar", "#FFFFFF", "", true);
         TerminalUtils.print("0. Sortir", "#FFFFFF", "", true); // Rojo antes #FF0000
-        
+
         TerminalUtils.print("\n══════════════════════════════\n", "#FF1493", "", true);
+    }
+
+    static mostrarLluitar() {
+        TerminalUtils.print("\n╔═════════════╗", "#FF4500", "", true);
+        TerminalUtils.print("\║   LLUITAR   ║", "#FF4500", "", true);
+        TerminalUtils.print("\╚═════════════╝\n", "#FF4500", "", true);
+    }
+
+    static mostrarEstadistiques() {
+        console.log("\n╔═══════════════════╗");
+        console.log("║   ESTADÍSTIQUES   ║");
+        console.log("╚═══════════════════╝\n");
     }
 }
 

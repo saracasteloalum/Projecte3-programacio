@@ -135,9 +135,9 @@ async function combat(jugador) {
     //Pongo qué tipo de personaje tiene el jugador y el enemigo
 
     // Diseño del inicio del combate
-    TerminalUtils.print("\n==============================", "#FF0000", "", true); // Rojo
-    TerminalUtils.print("       INICI DEL COMBAT       ", "#FFD700", "", true); // Amarillo
-    TerminalUtils.print("==============================\n", "#FF0000", "", true);
+    TerminalUtils.print("\n╔════════════════════════════╗", "#FF0000", "", true); // Rojo
+    TerminalUtils.print("║      INICI DEL COMBAT      ║", "#FF0000", "", true);
+    TerminalUtils.print("╚════════════════════════════╝\n", "#FF0000", "", true);
 
 
     // Mostramos los combatientes en color celeste
@@ -256,7 +256,9 @@ async function main() {
         switch (opcion) {
             case 1:
                 console.clear();
-                console.log("\n--- CREAR PERSONATGE ---");
+                console.log("\n╔════════════════════╗");
+                console.log("\n║ CREAR PERSONATGE   ║");
+                console.log("\n╚════════════════════╝");
                 // aqui llamaremos a una función para crear el personaje (lo haremos más adelante)
                 // por ejem:  personajeActual = crearNuevoPersonaje(); parte 1
 
@@ -272,7 +274,7 @@ async function main() {
             case 2:
                 console.clear();
                 llegirEstadisticas();
-                console.log("\n--- ESTADÍSTIQUES ---");
+                Menus.mostrarEstadistiques();
                 // en esta parte mostramos las victorias y derrotas 
                 TerminalUtils.log("Victories: " + victoriasArxiu, "#62f088");
                 TerminalUtils.log("Derrotes: " + derrotasArxiu, "#f0627c");
@@ -287,8 +289,7 @@ async function main() {
 
             case 3:
                 console.clear();
-                TerminalUtils.print("\n--- LLUITAR ---\n", "#FF4500", "", true);
-
+                Menus.mostrarLluitar();
                 if (personatgeActual === null) {
                     TerminalUtils.log("Error: Primer has de crear un personatge, tria l'opció '1'!", "#FF0000");
                     await TerminalUtils.espera(2000); // Pausa para leer el error
@@ -325,13 +326,6 @@ async function main() {
                 // Por si el usuario pulsa una tecla equivocada
                 TerminalUtils.print("\nOpció no vàlida. Si us plau, tria una opció disponible.\n", "#FF0000", "", true);//mensaje ui
                 // Poner un await para que el usuario vea el error (hay que meter el mensaje en una funcion async)
-                break;
-            case 4:
-                a = "4";
-                console.log(a);
-                parseInt(a);
-                console.log(a);
-                prompt();
                 break;
         }
 
