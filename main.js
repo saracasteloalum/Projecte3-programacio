@@ -171,7 +171,7 @@ async function combat(jugador) {
 
         //Aqui enseño la ronda en la que estamos y la vida de los personajes
         //Titulo de la ronda en Amarillo
-        TerminalUtils.print("\n--- RONDA " + ronda + " ---", "#FFFF00", "", true);
+        TerminalUtils.print("\n═══ RONDA " + ronda + " ═══", "#FFFF00", "", true);
 
         //Vidas de los personajes (Jugador en Verde, Enemigo en Rojo)
         TerminalUtils.print("Vida " + jugador.tipus + ": " + jugador.vida, "#00FF00", "", true);
@@ -207,7 +207,8 @@ async function combat(jugador) {
 
     }
     rondas = ronda;
-    TerminalUtils.print("\n==============================", "#FFD700", "", true);
+    TerminalUtils.print("\n══════════════════════════════", "#FFD700", "", true);
+
     if (jugador.vida <= 0 && enemic.vida <= 0) {
         TerminalUtils.print(" Els dos heu perdut! Guanya el teu contrincant.", "#CCCCCC", "", true);
         return false;
@@ -257,7 +258,7 @@ async function main() {
             case 1:
                 console.clear();
                 console.log("\n╔════════════════════╗");
-                console.log("\n║ CREAR PERSONATGE   ║");
+                console.log("\n║  CREAR PERSONATGE  ║");
                 console.log("\n╚════════════════════╝");
                 // aqui llamaremos a una función para crear el personaje (lo haremos más adelante)
                 // por ejem:  personajeActual = crearNuevoPersonaje(); parte 1
@@ -276,15 +277,15 @@ async function main() {
                 llegirEstadisticas();
                 Menus.mostrarEstadistiques();
                 // en esta parte mostramos las victorias y derrotas 
-                TerminalUtils.log("Victories: " + victoriasArxiu, "#62f088");
-                TerminalUtils.log("Derrotes: " + derrotasArxiu, "#f0627c");
-                TerminalUtils.log("\nRondes en combat: " + rondasArxiu, "#62cff0");
-                TerminalUtils.log("Partides jugades: " + (partidasArxiu), "#62cff0");
+                TerminalUtils.log("| Victories  :  " + victoriasArxiu + " |", "#62f088");
+                TerminalUtils.log("| Derrotes   :  " + derrotasArxiu + " |", "#f0627c");
+                TerminalUtils.log("\n| Rondes en combat   :  " + rondasArxiu + " |", "#62cff0");
+                TerminalUtils.log("| Partides jugades   :  " + (partidasArxiu)  + " |", "#62cff0");
                 let mitjana = Math.round(rondasArxiu / partidasArxiu);
-                if (isNaN(mitjana)) TerminalUtils.log("Mitjana de rondes per partida: 0", "#62cff0");
-                if (!isNaN(mitjana)) TerminalUtils.log("Mitjana de rondes per partida: " + mitjana, "#62cff0");
+                if (isNaN(mitjana)) TerminalUtils.log("| Mitjana de rondes per partida   :  0 |", "#62cff0");
+                if (!isNaN(mitjana)) TerminalUtils.log("| Mitjana de rondes per partida   :  " + mitjana  + " |", "#62cff0");
                 // Prompt para poder verlo antes de salir
-                prompt("\nPrem enter per sortir...");
+                prompt("\n--> Prem enter per continuar <--");
                 break;
 
             case 3:
@@ -313,7 +314,7 @@ async function main() {
                     escriureEstadisticas();
 
                     // Pausa para leer el resultado antes de volver al menu
-                    prompt("\nPrem Intro (Enter) per tornar al menú...");
+                    prompt("\n--> Prem enter per continuar <--");
                 }
                 break;
 
